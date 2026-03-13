@@ -74,9 +74,6 @@ Stores quiz results in a **NoSQL database** including:
 - Email
 - Phone
 - Score
-- Attempted Questions
-- Timestamp
-
 ---
 
 ## Application Workflow
@@ -104,9 +101,7 @@ Stores quiz results in a **NoSQL database** including:
 - Email
 - Phone
 - Score
-- Attempted Questions
-- Timestamp
-
+- 
 ---
 
 ## Application Workflow
