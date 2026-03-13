@@ -1,4 +1,5 @@
 AWS Serverless Quiz Application
+
 Project Overview
 
 This project demonstrates a serverless quiz application built using AWS services. The frontend is hosted on an Amazon EC2 instance running Nginx, while the backend uses API Gateway, AWS Lambda, and DynamoDB to process and store quiz results.
