@@ -57,34 +57,6 @@ Stores quiz results in a **NoSQL database** including:
 ---
 
 ## Example Data Stored in DynamoDB
-
-### AWS Lambda
-
-Processes quiz submissions and stores the results in DynamoDB.
-
-### Amazon DynamoDB
-
-Stores quiz results in a **NoSQL database** including:
-
-- Name
-- Email
-- Phone
-- Score
-- 
----
-
-## Application Workflow
-
-1. User opens the quiz website hosted on EC2.
-2. User enters details and answers the quiz.
-3. The frontend calculates the score using JavaScript.
-4. A **POST request** is sent to API Gateway.
-5. API Gateway triggers a **Lambda function**.
-6. Lambda stores the quiz result in **DynamoDB**.
-
----
-
-## Example Data Stored in DynamoDB
 email: user@example.com
 name: Test User
 phone: 9999999999
