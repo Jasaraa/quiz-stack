@@ -1,95 +1,152 @@
-AWS Serverless Quiz Application
+# AWS Serverless Quiz Application
 
-Project Overview
+## Project Overview
 
-This project demonstrates a serverless quiz application built using AWS services. The frontend is hosted on an Amazon EC2 instance running Nginx, while the backend uses API Gateway, AWS Lambda, and DynamoDB to process and store quiz results.
+This project demonstrates a **serverless quiz application built using AWS services**. The frontend is hosted on an **Amazon EC2 instance running Nginx**, while the backend uses **API Gateway, AWS Lambda, and DynamoDB** to process and store quiz results.
 
-This project was developed as part of a Cloud and DevOps learning exercise to understand how to build a simple full-stack cloud application using a serverless architecture.
+This project was developed as part of a **Cloud and DevOps learning exercise** to understand how to build a **simple full-stack cloud application using a serverless architecture**.
 
-Architecture
+---
+
+## Architecture
+
 User Browser → EC2 (Frontend) → API Gateway → Lambda → DynamoDB
-AWS Services Used
-Amazon EC2
+
+---
+
+## AWS Services Used
+
+### Amazon EC2
 
 Hosts the quiz frontend application.
 
-OS: RHEL 9
+- OS: **RHEL 9**
+- Web Server: **Nginx**
+- Serves the `index.html` quiz interface
 
-Web Server: Nginx
+### Amazon API Gateway
 
-Serves the index.html quiz interface
-
-Amazon API Gateway
-
-Provides a REST API endpoint that allows the frontend to send quiz results to the backend.
+Provides a **REST API endpoint** that allows the frontend to send quiz results to the backend.
 
 Example endpoint:
+# AWS Serverless Quiz Application
 
+## Project Overview
+
+This project demonstrates a **serverless quiz application built using AWS services**. The frontend is hosted on an **Amazon EC2 instance running Nginx**, while the backend uses **API Gateway, AWS Lambda, and DynamoDB** to process and store quiz results.
+
+This project was developed as part of a **Cloud and DevOps learning exercise** to understand how to build a **simple full-stack cloud application using a serverless architecture**.
+
+---
+
+## Architecture
+
+User Browser → EC2 (Frontend) → API Gateway → Lambda → DynamoDB
+
+---
+
+## AWS Services Used
+
+### Amazon EC2
+
+Hosts the quiz frontend application.
+
+- OS: **RHEL 9**
+- Web Server: **Nginx**
+- Serves the `index.html` quiz interface
+
+### Amazon API Gateway
+
+Provides a **REST API endpoint** that allows the frontend to send quiz results to the backend.
+
+Example endpoint:
 POST /submit
-AWS Lambda
+
+### AWS Lambda
 
 Processes quiz submissions and stores the results in DynamoDB.
 
-Amazon DynamoDB
+### Amazon DynamoDB
 
-Stores quiz results in a NoSQL database including:
+Stores quiz results in a **NoSQL database** including:
 
-Name
+- Name
+- Email
+- Phone
+- Score
+- Attempted Questions
+- Timestamp
 
-Email
+---
 
-Phone
+## Application Workflow
 
-Score
+1. User opens the quiz website hosted on EC2.
+2. User enters details and answers the quiz.
+3. The frontend calculates the score using JavaScript.
+4. A **POST request** is sent to API Gateway.
+5. API Gateway triggers a **Lambda function**.
+6. Lambda stores the quiz result in **DynamoDB**.
 
-Attempted Questions
+---
 
-Timestamp
+## Example Data Stored in DynamoDB
 
-Application Workflow
+### AWS Lambda
 
-User opens the quiz website hosted on EC2.
+Processes quiz submissions and stores the results in DynamoDB.
 
-User enters details and answers the quiz.
+### Amazon DynamoDB
 
-The frontend calculates the score using JavaScript.
+Stores quiz results in a **NoSQL database** including:
 
-A POST request is sent to API Gateway.
+- Name
+- Email
+- Phone
+- Score
+- Attempted Questions
+- Timestamp
 
-API Gateway triggers a Lambda function.
+---
 
-Lambda stores the quiz result in DynamoDB.
+## Application Workflow
 
-Example Data Stored in DynamoDB
+1. User opens the quiz website hosted on EC2.
+2. User enters details and answers the quiz.
+3. The frontend calculates the score using JavaScript.
+4. A **POST request** is sent to API Gateway.
+5. API Gateway triggers a **Lambda function**.
+6. Lambda stores the quiz result in **DynamoDB**.
+
+---
+
+## Example Data Stored in DynamoDB
 email: user@example.com
 name: Test User
 phone: 9999999999
 score: 8
 attempted: 10
 timestamp: 2026-03-11
-Technologies Used
-Cloud Services
 
-Amazon EC2
+---
 
-Amazon API Gateway
+## Technologies Used
 
-AWS Lambda
+### Cloud Services
 
-Amazon DynamoDB
+- Amazon EC2
+- Amazon API Gateway
+- AWS Lambda
+- Amazon DynamoDB
+- AWS IAM
 
-AWS IAM
+### Development
 
-Development
+- HTML
+- CSS
+- JavaScript
 
-HTML
+### Server
 
-CSS
-
-JavaScript
-
-Server
-
-Nginx
-
-RHEL Linux
+- Nginx
+- RHEL Linux
