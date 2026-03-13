@@ -29,37 +29,6 @@ Hosts the quiz frontend application.
 Provides a **REST API endpoint** that allows the frontend to send quiz results to the backend.
 
 Example endpoint:
-# AWS Serverless Quiz Application
-
-## Project Overview
-
-This project demonstrates a **serverless quiz application built using AWS services**. The frontend is hosted on an **Amazon EC2 instance running Nginx**, while the backend uses **API Gateway, AWS Lambda, and DynamoDB** to process and store quiz results.
-
-This project was developed as part of a **Cloud and DevOps learning exercise** to understand how to build a **simple full-stack cloud application using a serverless architecture**.
-
----
-
-## Architecture
-
-User Browser → EC2 (Frontend) → API Gateway → Lambda → DynamoDB
-
----
-
-## AWS Services Used
-
-### Amazon EC2
-
-Hosts the quiz frontend application.
-
-- OS: **RHEL 9**
-- Web Server: **Nginx**
-- Serves the `index.html` quiz interface
-
-### Amazon API Gateway
-
-Provides a **REST API endpoint** that allows the frontend to send quiz results to the backend.
-
-Example endpoint:
 POST /submit
 
 ### AWS Lambda
