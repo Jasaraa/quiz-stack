@@ -1,14 +1,14 @@
-AWS Serverless Quiz Application
-Project Overview
+#AWS Serverless Quiz Application
+#Project Overview
 
 This project demonstrates a serverless quiz application built using AWS services. The frontend is hosted on an Amazon EC2 instance running Nginx, while the backend uses API Gateway, AWS Lambda, and DynamoDB to process and store quiz results.
 
 This project was developed as part of a Cloud and DevOps learning exercise to understand how to build a simple full-stack cloud application using a serverless architecture.
 
-Architecture
+#Architecture
 User Browser → EC2 (Frontend) → API Gateway → Lambda → DynamoDB
-AWS Services Used
-Amazon EC2
+#AWS Services Used
+#Amazon EC2
 
 Hosts the quiz frontend application.
 
@@ -18,7 +18,7 @@ Web Server: Nginx
 
 Serves the index.html quiz interface
 
-Amazon API Gateway
+3Amazon API Gateway
 
 Provides a REST API endpoint that allows the frontend to send quiz results to the backend.
 
@@ -29,7 +29,7 @@ AWS Lambda
 
 Processes quiz submissions and stores the results in DynamoDB.
 
-Amazon DynamoDB
+3Amazon DynamoDB
 
 Stores quiz results in a NoSQL database including:
 
@@ -41,11 +41,7 @@ Phone
 
 Score
 
-Attempted Questions
-
-Timestamp
-
-Application Workflow
+#Application Workflow
 
 User opens the quiz website hosted on EC2.
 
@@ -59,15 +55,13 @@ API Gateway triggers a Lambda function.
 
 Lambda stores the quiz result in DynamoDB.
 
-Example Data Stored in DynamoDB
+#Example Data Stored in DynamoDB
 email: user@example.com
 name: Test User
 phone: 9999999999
 score: 8
-attempted: 10
-timestamp: 2026-03-11
-Technologies Used
-Cloud Services
+#Technologies Used
+#Cloud Services
 
 Amazon EC2
 
@@ -79,7 +73,7 @@ Amazon DynamoDB
 
 AWS IAM
 
-Development
+#Development
 
 HTML
 
@@ -89,6 +83,6 @@ JavaScript
 
 Server
 
-Nginx
+#Nginx
 
 RHEL Linux
