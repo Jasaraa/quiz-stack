@@ -1,76 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-<title>AWS Cloud Quiz</title>
+<title>AWS Quiz Application</title>
 
 <style>
 
 body{
-font-family: Arial, sans-serif;
-background: linear-gradient(to right,#1e3c72,#2a5298);
 margin:0;
-padding:40px;
+font-family: Arial, sans-serif;
+background:#eef2f7;
 }
 
 .container{
-max-width:750px;
+max-width:900px;
 margin:auto;
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+padding:20px;
 }
 
-h1{
+/* Header */
+.header{
+background:#0b2545;
+color:white;
+padding:20px;
+border-radius:8px;
 text-align:center;
-color:#1e3c72;
-margin-bottom:30px;
+margin-bottom:20px;
 }
 
-label{
-font-weight:bold;
+/* Cards */
+.card{
+background:#ffffff;
+padding:20px;
+border-radius:8px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
+h2{
+color:#0b2545;
+}
+
+/* Inputs */
 input[type="text"],
 input[type="email"]{
 width:100%;
-padding:8px;
+padding:10px;
 margin-top:5px;
 margin-bottom:15px;
 border:1px solid #ccc;
 border-radius:5px;
 }
 
+/* Questions */
 .question{
-margin-top:20px;
+margin-top:15px;
 padding:15px;
-border-left:5px solid #1e3c72;
-background:#f5f7fb;
+border-left:5px solid #0b2545;
+background:#f4f7fb;
 border-radius:5px;
 }
 
-.question h3{
-color:#333;
-}
-
+/* Button */
 button{
-margin-top:25px;
 width:100%;
 padding:14px;
-background:#1e3c72;
+background:#0b2545;
 color:white;
 border:none;
-border-radius:5px;
+border-radius:6px;
 font-size:16px;
 cursor:pointer;
-font-weight:bold;
 }
 
 button:hover{
-background:#16325c;
+background:#133c6b;
+}
+
+/* Result */
+.result{
+display:none;
+text-align:center;
+}
+
+.score-box{
+font-size:26px;
+margin:20px 0;
+color:#0b2545;
+font-weight:bold;
 }
 
 </style>
@@ -81,7 +98,17 @@ background:#16325c;
 
 <div class="container">
 
-<h1>AWS Cloud Fundamentals Quiz</h1>
+<div class="header">
+<h1>AWS Cloud Quiz</h1>
+<p>Professional Assessment</p>
+</div>
+
+<!-- QUIZ -->
+<div id="quizSection">
+
+<div class="card">
+
+<h2>Candidate Details</h2>
 
 <label>Name</label>
 <input type="text" id="name">
@@ -92,111 +119,98 @@ background:#16325c;
 <label>Phone</label>
 <input type="text" id="phone">
 
-
-<div class="question">
-<h3>1. What is Amazon Web Services (AWS)?</h3>
-
-<input type="radio" name="q1" value="wrong"> Programming language<br>
-<input type="radio" name="q1" value="correct"> Cloud computing platform<br>
-<input type="radio" name="q1" value="wrong"> Operating system<br>
-
 </div>
 
+<div class="card">
+
+<!-- QUESTIONS -->
 
 <div class="question">
-<h3>2. What does Amazon EC2 provide?</h3>
-
-<input type="radio" name="q2" value="wrong"> DNS service<br>
-<input type="radio" name="q2" value="wrong"> Email service<br>
-<input type="radio" name="q2" value="correct"> Virtual servers<br>
-
+<h3>1. What is AWS?</h3>
+<input type="checkbox" name="q1" value="wrong"> Programming language<br>
+<input type="checkbox" name="q1" value="correct"> Cloud platform<br>
+<input type="checkbox" name="q1" value="wrong"> Operating system<br>
 </div>
-
 
 <div class="question">
-<h3>3. Which AWS service is used for object storage?</h3>
-
-<input type="radio" name="q3" value="wrong"> EC2<br>
-<input type="radio" name="q3" value="correct"> Amazon S3<br>
-<input type="radio" name="q3" value="wrong"> Lambda<br>
-
+<h3>2. EC2 is used for?</h3>
+<input type="checkbox" name="q2" value="wrong"> Storage<br>
+<input type="checkbox" name="q2" value="wrong"> Networking<br>
+<input type="checkbox" name="q2" value="correct"> Virtual servers<br>
 </div>
-
 
 <div class="question">
-<h3>4. Which AWS service is a NoSQL database?</h3>
-
-<input type="radio" name="q4" value="wrong"> Amazon RDS<br>
-<input type="radio" name="q4" value="correct"> Amazon DynamoDB<br>
-<input type="radio" name="q4" value="wrong"> Amazon Aurora<br>
-
+<h3>3. Which service is NoSQL?</h3>
+<input type="checkbox" name="q3" value="wrong"> RDS<br>
+<input type="checkbox" name="q3" value="correct"> DynamoDB<br>
+<input type="checkbox" name="q3" value="wrong"> S3<br>
 </div>
-
 
 <div class="question">
-<h3>5. What does AWS Lambda provide?</h3>
-
-<input type="radio" name="q5" value="correct"> Serverless computing<br>
-<input type="radio" name="q5" value="wrong"> Virtual machines<br>
-<input type="radio" name="q5" value="wrong"> Database storage<br>
-
+<h3>4. What does S3 provide?</h3>
+<input type="checkbox" name="q4" value="wrong"> Virtual machines<br>
+<input type="checkbox" name="q4" value="correct"> Object storage<br>
+<input type="checkbox" name="q4" value="wrong"> Networking<br>
 </div>
-
 
 <div class="question">
-<h3>6. What is the role of API Gateway?</h3>
-
-<input type="radio" name="q6" value="wrong"> Store data<br>
-<input type="radio" name="q6" value="correct"> Expose APIs to applications<br>
-<input type="radio" name="q6" value="wrong"> Run containers<br>
-
+<h3>5. Which service is serverless?</h3>
+<input type="checkbox" name="q5" value="wrong"> EC2<br>
+<input type="checkbox" name="q5" value="correct"> Lambda<br>
+<input type="checkbox" name="q5" value="wrong"> RDS<br>
 </div>
-
 
 <div class="question">
-<h3>7. Which AWS service manages user access?</h3>
-
-<input type="radio" name="q7" value="wrong"> Route53<br>
-<input type="radio" name="q7" value="correct"> IAM<br>
-<input type="radio" name="q7" value="wrong"> CloudFront<br>
-
+<h3>6. API Gateway is used for?</h3>
+<input type="checkbox" name="q6" value="wrong"> Storage<br>
+<input type="checkbox" name="q6" value="correct"> Managing APIs<br>
+<input type="checkbox" name="q6" value="wrong"> Compute<br>
 </div>
-
 
 <div class="question">
-<h3>8. Which AWS service provides relational databases?</h3>
-
-<input type="radio" name="q8" value="wrong"> DynamoDB<br>
-<input type="radio" name="q8" value="correct"> Amazon RDS<br>
-<input type="radio" name="q8" value="wrong"> Lambda<br>
-
+<h3>7. IAM stands for?</h3>
+<input type="checkbox" name="q7" value="wrong"> Internal Access Mode<br>
+<input type="checkbox" name="q7" value="correct"> Identity and Access Management<br>
+<input type="checkbox" name="q7" value="wrong"> Internet Access Manager<br>
 </div>
-
 
 <div class="question">
-<h3>9. Which service monitors AWS resources?</h3>
-
-<input type="radio" name="q9" value="wrong"> EC2<br>
-<input type="radio" name="q9" value="correct"> Amazon CloudWatch<br>
-<input type="radio" name="q9" value="wrong"> S3<br>
-
+<h3>8. Which service provides relational DB?</h3>
+<input type="checkbox" name="q8" value="wrong"> DynamoDB<br>
+<input type="checkbox" name="q8" value="correct"> RDS<br>
+<input type="checkbox" name="q8" value="wrong"> Lambda<br>
 </div>
-
 
 <div class="question">
-<h3>10. Which AWS service manages domain names?</h3>
-
-<input type="radio" name="q10" value="correct"> Amazon Route 53<br>
-<input type="radio" name="q10" value="wrong"> CloudWatch<br>
-<input type="radio" name="q10" value="wrong"> IAM<br>
-
+<h3>9. Which service monitors AWS?</h3>
+<input type="checkbox" name="q9" value="wrong"> EC2<br>
+<input type="checkbox" name="q9" value="correct"> CloudWatch<br>
+<input type="checkbox" name="q9" value="wrong"> S3<br>
 </div>
 
+<div class="question">
+<h3>10. Route 53 is used for?</h3>
+<input type="checkbox" name="q10" value="wrong"> Storage<br>
+<input type="checkbox" name="q10" value="correct"> DNS<br>
+<input type="checkbox" name="q10" value="wrong"> Compute<br>
+</div>
 
 <button onclick="submitQuiz()">Submit Quiz</button>
 
 </div>
 
+</div>
+
+<!-- RESULT -->
+<div id="resultSection" class="card result">
+
+<h2>Quiz Result</h2>
+<div class="score-box" id="finalScore"></div>
+<p>Thank you for completing the assessment.</p>
+
+</div>
+
+</div>
 
 <script>
 
@@ -205,48 +219,45 @@ function submitQuiz(){
 let score = 0;
 let attempted = 0;
 
-const answers = document.querySelectorAll('input[type="radio"]:checked');
+// Loop questions
+for(let i=1;i<=10;i++){
 
-attempted = answers.length;
+let selected = document.querySelectorAll(`input[name="q${i}"]:checked`);
 
-answers.forEach((ans)=>{
-if(ans.value === "correct"){
+if(selected.length > 0){
+attempted++;
+
+if(selected.length === 1 && selected[0].value === "correct"){
 score++;
 }
-});
 
+}
+
+}
+
+// Show result
+document.getElementById("quizSection").style.display="none";
+document.getElementById("resultSection").style.display="block";
+
+document.getElementById("finalScore").innerText =
+"Your Score: " + score + " / 10";
+
+// Send data
 const data = {
-
 name: document.getElementById("name").value,
 email: document.getElementById("email").value,
 phone: document.getElementById("phone").value,
 score: score,
 attempted: attempted
-
 };
 
 fetch("https://s6tqvm6yb5.execute-api.eu-north-1.amazonaws.com/submit",{
 
 method:"POST",
-
 headers:{
 "Content-Type":"application/json"
 },
-
 body:JSON.stringify(data)
-
-})
-.then(response => response.text())
-
-.then(result => {
-
-alert("Quiz submitted successfully!\nScore: " + score + "/10");
-
-})
-
-.catch(error => {
-
-alert("Submission failed. Please try again.");
 
 });
 
