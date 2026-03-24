@@ -1,39 +1,49 @@
 import json
 import boto3
+from datetime import datetime
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('QuizResults')
 
 def lambda_handler(event, context):
 
-    # Handle CORS preflight request
-    if event.get("requestContext", {}).get("http", {}).get("method") == "OPTIONS":
+    try:
+        body = json.loads(event.get('body', '{}'))
+
+        print("Received body:", body)
+
+        name = body.get('name')
+        email = body.get('email')
+        phone = body.get('phone')
+        score = body.get('score')
+        correct = body.get('correct')
+        wrong = body.get('wrong')
+        attempted = body.get('attempted')
+
+        table.put_item(
+            Item={
+                'email': email,
+                'name': name,
+                'phone': phone,
+                'score': score,
+                'correct': correct,
+                'wrong': wrong,
+                'attempted': attempted,
+                'timestamp': str(datetime.now())
+            }
+        )
+
         return {
-            "statusCode": 200,
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Methods": "OPTIONS,POST"
+            'statusCode': 200,
+            'headers': {
+                'Access-Control-Allow-Origin': '*'
             },
-            "body": json.dumps("CORS OK")
+            'body': json.dumps({'message': 'Saved Successfully'})
         }
 
-    body = json.loads(event['body'])
-
-    table.put_item(
-        Item={
-            'email': body['email'],
-            'name': body['name'],
-            'phone': body['phone'],
-            'score': body['score'],
-            'attempted': body['attempted']
+    except Exception as e:
+        print("Error:", str(e))
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': str(e)})
         }
-    )
-
-    return {
-        "statusCode": 200,
-        "headers": {
-            "Access-Control-Allow-Origin": "*"
-        },
-        "body": json.dumps("Quiz saved successfully")
-    }
