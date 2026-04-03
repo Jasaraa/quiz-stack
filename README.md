@@ -47,7 +47,7 @@ Stores quiz results in a **NoSQL database** including:
 
 ## Application Workflow
 
-1. User opens the quiz website hosted on EC2.
+1. User opens the secured quiz website hosted on EC2.
 2. User enters details and answers the quiz.
 3. The frontend calculates the score using JavaScript.
 4. A **POST request** is sent to API Gateway.
