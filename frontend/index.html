@@ -2,51 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AWS Cloud Quiz</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<title>QUIZSTACK</title>
 
 <style>
-
 body{
-margin:0;
-font-family:'Inter',sans-serif;
-background:linear-gradient(135deg,#0f172a,#1e293b);
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(to right,#0f172a,#1e293b);
 color:white;
-padding:30px;
+margin:0;
 }
 
-/* CONTAINER */
 .container{
-max-width:950px;
+width:60%;
 margin:auto;
-}
-
-/* HEADER */
-.header{
-text-align:center;
-margin-bottom:25px;
-}
-
-.header h1{
-font-size:34px;
-}
-
-.header p{
-opacity:0.7;
-}
-
-/* FORM */
-.form{
+margin-top:60px;
 background:#1e293b;
-padding:20px;
-border-radius:15px;
-margin-bottom:20px;
+padding:30px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
-.form input{
+h1{text-align:center;}
+
+input{
 width:100%;
-padding:12px;
+padding:14px;
 margin:10px 0;
 border-radius:10px;
 border:none;
@@ -54,299 +34,204 @@ background:#0f172a;
 color:white;
 }
 
-/* BUTTON */
 button{
 width:100%;
 padding:14px;
+background:linear-gradient(to right,#3b82f6,#2563eb);
 border:none;
-border-radius:12px;
-background:linear-gradient(135deg,#3b82f6,#2563eb);
+border-radius:10px;
 color:white;
-cursor:pointer;
 font-size:16px;
-}
-
-/* TIMER */
-.timer{
-text-align:center;
-font-size:20px;
-margin-bottom:15px;
-color:#22c55e;
-font-weight:600;
+cursor:pointer;
+margin-top:15px;
 }
 
 /* QUESTION */
-.card{
-background:#1e293b;
+.question{
+margin:20px 0;
 padding:20px;
-border-radius:15px;
-margin-bottom:18px;
+background:#0f172a;
+border-radius:12px;
+}
+
+/* ✅ CLICKABLE OPTIONS */
+.options{
+margin-top:15px;
 }
 
 .option{
-padding:14px;
-margin-bottom:10px;
-background:#0f172a;
-border-radius:10px;
+padding:12px;
+margin:8px 0;
+border-radius:8px;
+background:#111827;
 cursor:pointer;
 transition:0.2s;
 }
 
 .option:hover{
-background:#334155;
+background:#1e293b;
 }
 
+/* SELECTED STYLE */
 .option.selected{
-background:linear-gradient(135deg,#3b82f6,#2563eb);
+background:#3b82f6;
+color:white;
 }
 
 /* RESULT */
 .result{
 display:none;
-margin-top:20px;
-padding:20px;
-background:#111827;
-border-radius:15px;
 text-align:center;
 }
 
-.metrics{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:10px;
-margin-top:20px;
+.score{
+font-size:40px;
+color:#3b82f6;
 }
-
-.metric{
-background:#1e293b;
-padding:15px;
-border-radius:10px;
-}
-
-/* TOAST */
-.toast{
-position:fixed;
-top:20px;
-right:20px;
-background:#ef4444;
-color:white;
-padding:14px 18px;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-opacity:0;
-transform:translateY(-20px);
-transition:0.3s;
-z-index:999;
-}
-
-.toast.show{
-opacity:1;
-transform:translateY(0);
-}
-
 </style>
 </head>
 
 <body>
 
-<div id="toast" class="toast"></div>
-
 <div class="container">
 
-<div class="header">
-<h1>AWS Cloud Quiz</h1>
-<p>Professional Assessment Platform</p>
-</div>
+<h1>QUIZSTACK</h1>
 
-<!-- FORM -->
-<div class="form" id="formSection">
-<input id="name" placeholder="Full Name">
-<input id="email" placeholder="Email Address">
-<input id="phone" placeholder="Phone Number">
+<div id="form">
+<input type="text" id="name" placeholder="Full Name">
+<input type="email" id="email" placeholder="Email">
+<input type="text" id="phone" placeholder="Phone Number">
+
 <button onclick="startQuiz()">Start Quiz</button>
 </div>
-
-<div class="timer" id="timer" style="display:none;">Time Left: 05:00</div>
 
 <div id="quiz" style="display:none;"></div>
 
 <button id="submitBtn" onclick="submitQuiz()" style="display:none;">Submit Quiz</button>
 
-<!-- RESULT -->
-<div class="result" id="resultBox">
-<h2 id="scoreText"></h2>
-
-<div class="metrics">
-<div class="metric"><h3 id="correct"></h3><p>Correct</p></div>
-<div class="metric"><h3 id="wrong"></h3><p>Wrong</p></div>
-<div class="metric"><h3 id="attempted"></h3><p>Attempted</p></div>
-</div>
-
+<div class="result" id="result">
+<h1 class="score" id="score"></h1>
+<p id="details"></p>
+<button onclick="location.reload()">Restart</button>
 </div>
 
 </div>
 
 <script>
 
-const apiUrl="https://s6tqvm6yb5.execute-api.eu-north-1.amazonaws.com/submit";
+const API_URL = "https://s6tqvm6yb5.execute-api.eu-north-1.amazonaws.com/submit";
 
-/* TOAST */
-function showToast(message){
-const toast=document.getElementById("toast");
-toast.innerText=message;
-toast.classList.add("show");
-
-setTimeout(()=>{
-toast.classList.remove("show");
-},3000);
-}
-
-/* 🔥 PROFESSIONAL AWS QUESTIONS */
 const quizData=[
-
 {
 q:"A company wants to improve application availability by distributing traffic across multiple EC2 instances. Which AWS service should be used?",
 options:["Amazon Route 53","Elastic Load Balancer","AWS Lambda","Amazon CloudFront"],
 answer:1
 },
-
 {
 q:"A developer wants to run code without provisioning servers and only pay for execution time. Which service is best?",
 options:["Amazon EC2","AWS Lambda","Amazon ECS","AWS Elastic Beanstalk"],
 answer:1
 },
-
 {
 q:"A company needs highly durable storage for static assets like images and videos. Which service should they choose?",
 options:["Amazon EBS","Amazon S3","Amazon FSx","Instance Store"],
 answer:1
 },
-
 {
 q:"Which AWS service provides a fully managed NoSQL database with low latency and automatic scaling?",
 options:["Amazon RDS","Amazon DynamoDB","Amazon Aurora","Amazon Redshift"],
 answer:1
 },
-
 {
 q:"Which AWS service is used for DNS management and routing internet traffic?",
 options:["Amazon CloudFront","Amazon Route 53","AWS IAM","Amazon VPC"],
 answer:1
 },
-
 {
 q:"A DevOps engineer needs to monitor logs and set alarms. Which service should be used?",
 options:["AWS CloudTrail","Amazon CloudWatch","Amazon SNS","AWS Config"],
 answer:1
 },
-
 {
 q:"Which AWS service is best suited for relational databases?",
 options:["Amazon DynamoDB","Amazon RDS","Amazon S3","AWS Lambda"],
 answer:1
 },
-
 {
 q:"Which AWS service helps deliver content globally with low latency?",
 options:["Amazon EC2","Amazon CloudFront","Amazon S3","AWS Direct Connect"],
 answer:1
 },
-
 {
 q:"Which AWS service manages user access and permissions securely?",
 options:["Amazon Cognito","AWS IAM","AWS Organizations","AWS Directory Service"],
 answer:1
 },
-
 {
 q:"Which AWS feature automatically adjusts compute capacity based on demand?",
 options:["AWS CloudFormation","Auto Scaling","AWS Lambda","AWS Elastic Beanstalk"],
 answer:1
 }
-
 ];
 
-let answers={};
-let userData={};
+let answers=[];
+let user={};
 
-/* TIMER */
-let time=300;
-let timerInterval;
-
-function startTimer(){
-timerInterval=setInterval(()=>{
-let m=Math.floor(time/60);
-let s=time%60;
-
-document.getElementById("timer").innerText=
-`Time Left: ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-
-time--;
-
-if(time<0){
-clearInterval(timerInterval);
-showToast("Time Up!");
-submitQuiz();
-}
-},1000);
-}
-
-/* START */
+/* START QUIZ */
 function startQuiz(){
 
 let name=document.getElementById("name").value;
 let email=document.getElementById("email").value;
 let phone=document.getElementById("phone").value;
 
-if(!name||!email||!phone){
-showToast("⚠️ Please fill all details");
+if(!name || !email || !phone){
+alert("Fill all fields");
 return;
 }
 
-userData={name,email,phone};
+user={name,email,phone};
 
-document.getElementById("formSection").style.display="none";
+document.getElementById("form").style.display="none";
 document.getElementById("quiz").style.display="block";
 document.getElementById("submitBtn").style.display="block";
-document.getElementById("timer").style.display="block";
 
-startTimer();
-loadQuiz();
-}
-
-/* LOAD */
-function loadQuiz(){
-const quiz=document.getElementById("quiz");
-
-quizData.forEach((q,index)=>{
+quizData.forEach((q,i)=>{
 let div=document.createElement("div");
-div.className="card";
+div.className="question";
 
-let html=`<h3>${index+1}. ${q.q}</h3>`;
+div.innerHTML=`
+<h3>${i+1}. ${q.q}</h3>
+<div class="options">
+${q.options.map((opt,index)=>`
+<div class="option" onclick="selectOption(${i}, ${index}, this)">
+${opt}
+</div>
+`).join("")}
+</div>
+`;
 
-q.options.forEach((opt,i)=>{
-html+=`<div class="option" onclick="selectOption(${index},${i},this)">${opt}</div>`;
+document.getElementById("quiz").appendChild(div);
 });
 
-div.innerHTML=html;
-quiz.appendChild(div);
-});
 }
 
-/* SELECT */
-function selectOption(qIndex,optIndex,el){
+/* SELECT OPTION */
+function selectOption(qIndex, optIndex, element){
+
 answers[qIndex]=optIndex;
 
-let parent=el.parentElement;
-parent.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+/* remove previous selection */
+let options=element.parentElement.children;
+for(let opt of options){
+opt.classList.remove("selected");
+}
 
-el.classList.add("selected");
+/* add highlight */
+element.classList.add("selected");
 }
 
 /* SUBMIT */
 async function submitQuiz(){
-
-clearInterval(timerInterval);
 
 let correct=0;
 let attempted=0;
@@ -360,30 +245,29 @@ if(answers[i]==q.answer) correct++;
 
 let wrong=attempted-correct;
 
-const payload={
-name:userData.name,
-email:userData.email,
-phone:userData.phone,
+await fetch(API_URL,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name:user.name,
+email:user.email,
+phone:user.phone,
 score:correct,
 correct:correct,
 wrong:wrong,
 attempted:attempted
-};
-
-await fetch(apiUrl,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(payload)
+})
 });
 
-document.getElementById("resultBox").style.display="block";
+document.getElementById("quiz").style.display="none";
+document.getElementById("submitBtn").style.display="none";
+document.getElementById("result").style.display="block";
 
-document.getElementById("scoreText").innerText=
-`${userData.name}, your score is ${correct}/10`;
-
-document.getElementById("correct").innerText=correct;
-document.getElementById("wrong").innerText=wrong;
-document.getElementById("attempted").innerText=attempted;
+document.getElementById("score").innerText=correct+"/10";
+document.getElementById("details").innerText=
+"Correct: "+correct+" | Wrong: "+wrong+" | Attempted: "+attempted;
 
 }
 
